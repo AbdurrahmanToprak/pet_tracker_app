@@ -19,8 +19,8 @@ class _UpdatePetScreenState extends State<UpdatePetScreen> {
   late TextEditingController _ageController;
   late TextEditingController _breedController;
   late TextEditingController _weightController;
-  String _selectedType = ''; // Tür için başlangıç değeri
-  String _selectedHealthStatus = ''; // Sağlık durumu için başlangıç değeri
+  String _selectedType = '';
+  String _selectedHealthStatus = '';
   File? _imageFile;
 
   @override
@@ -142,6 +142,7 @@ class _UpdatePetScreenState extends State<UpdatePetScreen> {
                   );
                 } else {
                   final updatedPet = PetModel(
+                    id: widget.pet.id,
                     name: _nameController.text,
                     type: _selectedType,
                     age: int.parse(_ageController.text),
@@ -150,7 +151,7 @@ class _UpdatePetScreenState extends State<UpdatePetScreen> {
                     weight: double.parse(_weightController.text),
                     healthStatus: _selectedHealthStatus,
                   );
-                  petViewModel.updatePet(widget.pet, updatedPet);
+                  petViewModel.updatePet(widget.pet.id, updatedPet);
 
                   // mesaj
                   ScaffoldMessenger.of(context).showSnackBar(

@@ -1,34 +1,30 @@
-import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
 import '../../models/health_record_model.dart';
+import 'package:hive/hive.dart';
 
-class HealthRecordViewModel with ChangeNotifier {
-  final Box<HealthRecordModel> _healthRecordBox;
-
-  HealthRecordViewModel()
-      : _healthRecordBox = Hive.box<HealthRecordModel>('healthRecords');
-
+class HealthRecordViewModel extends ChangeNotifier {
+  final _healthRecordBox = Hive.box<HealthRecordModel>('healthRecords');
   List<HealthRecordModel> get healthRecords => _healthRecordBox.values.toList();
 
-  // Sağlık kaydı ekleme
-  void addHealthRecord(HealthRecordModel healthRecord) {
-    _healthRecordBox.add(healthRecord);
+  List<HealthRecordModel> getHealthRecordsForPet(String petId) {
+    return _healthRecordBox.values
+        .where((record) => record.petId == petId)
+        .toList();
+  }
+
+  void addHealthRecord(String petId, HealthRecordModel record) {
+    record.petId = petId;
+    _healthRecordBox.add(record);
     notifyListeners();
   }
 
-  // Sağlık kaydını güncelleme
-  void updateHealthRecord(
-      HealthRecordModel oldRecord, HealthRecordModel updatedRecord) {
-    final index = _healthRecordBox.values.toList().indexOf(oldRecord);
+  void deleteHealthRecord(String recordId) {
+    final index = _healthRecordBox.values
+        .toList()
+        .indexWhere((record) => record.id == recordId);
     if (index != -1) {
-      _healthRecordBox.putAt(index, updatedRecord);
+      _healthRecordBox.deleteAt(index);
       notifyListeners();
     }
-  }
-
-  // Sağlık kaydını silme
-  void deleteHealthRecord(int index) {
-    _healthRecordBox.deleteAt(index);
-    notifyListeners();
   }
 }

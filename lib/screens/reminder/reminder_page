@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import '../../models/pet_model.dart';
+
+class ReminderPage extends StatelessWidget {
+  final PetModel pet;
+
+  const ReminderPage({Key? key, required this.pet}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${pet.name} Hatırlatıcılar'),
+      ),
+      body: ListView(
+        children: [
+          ListTile(
+            title: Text("Yemek Hatırlatıcıları"),
+            subtitle: Text("Yemek zamanı hatırlatıcıları"),
+          ),
+          Divider(),
+          ListTile(
+            title: Text("İlaç Hatırlatıcıları"),
+            subtitle: Text("İlaç zamanları hatırlatıcıları"),
+          ),
+          Divider(),
+          ListTile(
+            title: Text("Egzersiz Hatırlatıcıları"),
+            subtitle: Text("Egzersiz yapma hatırlatıcıları"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Yeni hatırlatıcı eklemek için bir sayfaya yönlendirme yapabilirsiniz.
+            },
+            child: const Text('Yeni Hatırlatıcı Ekle'),
+          ),
+        ],
+      ),
+    );
+  }
+}

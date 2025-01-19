@@ -17,25 +17,28 @@ class HealthRecordModelAdapter extends TypeAdapter<HealthRecordModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return HealthRecordModel(
-      doctorName: fields[0] as String,
-      visitDate: fields[1] as DateTime,
-      description: fields[2] as String,
-      pet: fields[3] as PetModel,
+      doctorName: fields[1] as String,
+      visitDate: fields[2] as DateTime,
+      description: fields[3] as String,
+      petId: fields[4] as String,
+      id: fields[0] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, HealthRecordModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.doctorName)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.visitDate)
+      ..write(obj.doctorName)
       ..writeByte(2)
-      ..write(obj.description)
+      ..write(obj.visitDate)
       ..writeByte(3)
-      ..write(obj.pet);
+      ..write(obj.description)
+      ..writeByte(4)
+      ..write(obj.petId);
   }
 
   @override

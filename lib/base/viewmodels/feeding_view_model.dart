@@ -9,24 +9,34 @@ class FeedingViewModel with ChangeNotifier {
 
   List<FeedingModel> get feedings => _feedingBox.values.toList();
 
-  // Beslenme ekleme
-  void addFeeding(FeedingModel feeding) {
+  List<FeedingModel> getFeedingsForPet(String petId) {
+    return feedings.where((feeding) => feeding.petId == petId).toList();
+  }
+
+  // Yemek kaydı ekleme
+  void addFeeding(String petId, FeedingModel feeding) {
+    feeding.petId = petId;
     _feedingBox.add(feeding);
     notifyListeners();
   }
 
-  // Beslenme güncelleme
-  void updateFeeding(FeedingModel oldFeeding, FeedingModel updatedFeeding) {
-    final index = _feedingBox.values.toList().indexOf(oldFeeding);
+  // Yemek kaydını güncelleme
+  void updateFeeding(String id, FeedingModel updatedFeeding) {
+    final index =
+        _feedingBox.values.toList().indexWhere((feeding) => feeding.id == id);
     if (index != -1) {
       _feedingBox.putAt(index, updatedFeeding);
       notifyListeners();
     }
   }
 
-  // Beslenme silme
-  void deleteFeeding(int index) {
-    _feedingBox.deleteAt(index);
-    notifyListeners();
+  // Yemek kaydını silme
+  void deleteFeeding(String id) {
+    final index =
+        _feedingBox.values.toList().indexWhere((feeding) => feeding.id == id);
+    if (index != -1) {
+      _feedingBox.deleteAt(index);
+      notifyListeners();
+    }
   }
 }

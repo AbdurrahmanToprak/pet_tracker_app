@@ -8,22 +8,23 @@ class PetViewModel with ChangeNotifier {
   PetViewModel() : _petBox = Hive.box<PetModel>('pets');
 
   List<PetModel> get pets => _petBox.values.toList();
-  //ekleme
+
+  // Evcil hayvan ekleme
   void addPet(PetModel pet) {
     _petBox.add(pet);
     notifyListeners();
   }
 
-  //güncelleme fonksiyonu
-  void updatePet(PetModel oldPet, PetModel updatedPet) {
-    final index = _petBox.values.toList().indexOf(oldPet);
+  // Evcil hayvan güncelleme
+  void updatePet(String id, PetModel updatedPet) {
+    final index = _petBox.values.toList().indexWhere((pet) => pet.id == id);
     if (index != -1) {
       _petBox.putAt(index, updatedPet);
       notifyListeners();
     }
   }
 
-  // silme işlemi
+  // Evcil hayvan silme
   void deletePet(int index) {
     _petBox.deleteAt(index);
     notifyListeners();

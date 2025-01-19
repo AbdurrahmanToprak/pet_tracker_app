@@ -130,6 +130,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
                   );
                 } else {
                   final pet = PetModel(
+                    id: '',
                     name: _nameController.text,
                     type: _selectedType,
                     age: int.parse(_ageController.text),
