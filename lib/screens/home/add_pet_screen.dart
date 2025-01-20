@@ -18,7 +18,6 @@ class _AddPetScreenState extends State<AddPetScreen> {
   final _ageController = TextEditingController();
   final _breedController = TextEditingController();
   final _weightController = TextEditingController();
-  final _healthStatusController = TextEditingController();
 
   File? _imageFile;
   String _selectedType = 'Köpek';
@@ -123,7 +122,6 @@ class _AddPetScreenState extends State<AddPetScreen> {
                     _selectedHealthStatus.isEmpty ||
                     _imageFile == null ||
                     _selectedType.isEmpty) {
-                  // uyarı verme
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                         content: Text(
@@ -131,7 +129,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
                   );
                 } else {
                   final pet = PetModel(
-                    id: Uuid().v4(),
+                    id: const Uuid().v4(),
                     name: _nameController.text,
                     type: _selectedType,
                     age: int.parse(_ageController.text),

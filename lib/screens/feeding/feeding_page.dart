@@ -14,8 +14,7 @@ class FeedingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final feedingViewModel = Provider.of<FeedingViewModel>(context);
-    final feedings = feedingViewModel
-        .getFeedingsForPet(pet.id); // Pet'e özel feedings alınıyor
+    final feedings = feedingViewModel.getFeedingsForPet(pet.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -43,9 +42,7 @@ class FeedingPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // ListTile üzerine tıklanınca FeedingDetailPage'e geçiş yapacak.
                     onTap: () {
-                      // Detay sayfasına yönlendirme
                       Navigator.push(
                         context,
                         MaterialPageRoute(

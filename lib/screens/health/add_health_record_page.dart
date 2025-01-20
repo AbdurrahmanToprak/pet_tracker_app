@@ -7,7 +7,7 @@ import '../../base/viewmodels/health_record_view_model.dart';
 class AddHealthRecordPage extends StatefulWidget {
   final PetModel pet;
 
-  AddHealthRecordPage({required this.pet});
+  const AddHealthRecordPage({super.key, required this.pet});
 
   @override
   _AddHealthRecordPageState createState() => _AddHealthRecordPageState();
@@ -52,7 +52,7 @@ class _AddHealthRecordPageState extends State<AddHealthRecordPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Yeni Sağlık Kaydı'),
+        title: const Text('Yeni Sağlık Kaydı'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,30 +61,30 @@ class _AddHealthRecordPageState extends State<AddHealthRecordPage> {
           child: Column(
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: 'Doktor Adı'),
+                decoration: const InputDecoration(labelText: 'Doktor Adı'),
                 onSaved: (value) => _doctorName = value!,
                 validator: (value) => value == null || value.isEmpty
                     ? 'Doktor adı gerekli'
                     : null,
               ),
-              SizedBox(height: 10),
-              Row(
+              const SizedBox(height: 10),
+              Column(
                 children: [
                   Text('Ziyaret Saati: ${_visitDate.toLocal()}'),
                   TextButton(
                     onPressed: () => _selectVisitDate(context),
-                    child: Text('Saat Seç'),
+                    child: const Text('Saat Seç'),
                   ),
                 ],
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Açıklama'),
+                decoration: const InputDecoration(labelText: 'Açıklama'),
                 maxLines: 3,
                 onSaved: (value) => _description = value!,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
-                child: Text('Kaydet'),
+                child: const Text('Kaydet'),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
@@ -101,7 +101,7 @@ class _AddHealthRecordPageState extends State<AddHealthRecordPage> {
                         widget.pet.id, newRecord);
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Sağlık kaydı eklendi!')),
+                      const SnackBar(content: Text('Sağlık kaydı eklendi!')),
                     );
                   }
                 },

@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
-import 'pet_model.dart';
 
 part 'health_record_model.g.dart';
 
@@ -27,5 +26,5 @@ class HealthRecordModel {
     required this.description,
     required this.petId,
     String? id,
-  }) : id = id ?? Uuid().v4();
+  }) : id = id ?? const Uuid().v4();
 }

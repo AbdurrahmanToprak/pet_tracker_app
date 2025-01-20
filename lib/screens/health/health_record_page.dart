@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../models/health_record_model.dart';
 import '../../models/pet_model.dart';
 import '../../base/viewmodels/health_record_view_model.dart';
+import 'health_record_detail_page.dart';
 import 'add_health_record_page.dart';
 
 class HealthRecordPage extends StatelessWidget {
   final PetModel pet;
 
-  const HealthRecordPage({Key? key, required this.pet}) : super(key: key);
+  const HealthRecordPage({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class HealthRecordPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('${pet.name} Sağlık Kayıtları')),
       body: petHealthRecords.isEmpty
-          ? Center(child: Text('Henüz bir sağlık kaydı yok.'))
+          ? const Center(child: Text('Henüz bir sağlık kaydı yok.'))
           : ListView.builder(
               itemCount: petHealthRecords.length,
               itemBuilder: (context, index) {
@@ -29,6 +29,17 @@ class HealthRecordPage extends StatelessWidget {
                     title: Text('Doktor: ${record.doctorName}'),
                     subtitle:
                         Text('Ziyaret Tarihi: ${record.visitDate.toLocal()}'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HealthRecordDetailPage(
+                            pet: pet,
+                            record: record,
+                          ),
+                        ),
+                      );
+                    },
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {

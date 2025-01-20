@@ -1,59 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../models/health_record_model.dart';
 import '../../models/pet_model.dart';
-import '../../models/feeding_model.dart';
-import '../../base/viewmodels/feeding_view_model.dart';
-import 'update_feeding_page.dart';
+import '../../base/viewmodels/health_record_view_model.dart';
+import 'update_health_record_page.dart';
 
-class FeedingDetailPage extends StatefulWidget {
+class HealthRecordDetailPage extends StatefulWidget {
   final PetModel pet;
-  final FeedingModel feeding;
+  final HealthRecordModel record;
 
-  const FeedingDetailPage({
+  const HealthRecordDetailPage({
     super.key,
     required this.pet,
-    required this.feeding,
+    required this.record,
   });
 
   @override
-  _FeedingDetailPageState createState() => _FeedingDetailPageState();
+  State<HealthRecordDetailPage> createState() => _HealthRecordDetailPageState();
 }
 
-class _FeedingDetailPageState extends State<FeedingDetailPage> {
-  late FeedingModel feeding;
+class _HealthRecordDetailPageState extends State<HealthRecordDetailPage> {
+  late HealthRecordModel record;
 
   @override
   void initState() {
     super.initState();
-    feeding = widget.feeding;
+    record = widget.record;
   }
 
   @override
   Widget build(BuildContext context) {
-    final feedingViewModel = Provider.of<FeedingViewModel>(context);
+    final healthRecordViewModel = Provider.of<HealthRecordViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Beslenme Detayı'),
+        title: const Text('Sağlık Kaydı Detayı'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Yemek Türü: ${feeding.foodType}',
+            Text('Doktor: ${record.doctorName}',
                 style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 10),
-            Text('Miktar: ${feeding.amount} gram',
+            Text('Ziyaret Tarihi: ${record.visitDate.toLocal()}',
                 style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 10),
-            Text('Su: ${feeding.hasWater ? "Verildi" : "Verilmedi"}',
+            Text('Açıklama: ${record.description}',
                 style: const TextStyle(fontSize: 16)),
-            const SizedBox(height: 10),
-            Text(
-              'Tarih: ${feeding.mealTime.day}/${feeding.mealTime.month}/${feeding.mealTime.year} ${feeding.mealTime.hour}:${feeding.mealTime.minute}',
-              style: const TextStyle(fontSize: 14, color: Colors.grey),
-            ),
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,17 +60,17 @@ class _FeedingDetailPageState extends State<FeedingDetailPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => UpdateFeedingPage(
+                        builder: (context) => UpdateHealthRecordPage(
                           pet: widget.pet,
-                          feeding: feeding,
+                          record: record,
                         ),
                       ),
                     ).then((_) {
-                      final updatedFeeding = feedingViewModel
-                          .getFeedingsForPet(widget.pet.id)
-                          .firstWhere((f) => f.id == feeding.id);
+                      final updatedHealthRecord = healthRecordViewModel
+                          .getHealthRecordsForPet(widget.pet.id)
+                          .firstWhere((h) => h.id == record.id);
                       setState(() {
-                        feeding = updatedFeeding;
+                        record = updatedHealthRecord;
                       });
                     });
                   },
@@ -87,10 +82,10 @@ class _FeedingDetailPageState extends State<FeedingDetailPage> {
                     backgroundColor: Colors.red,
                   ),
                   onPressed: () {
-                    feedingViewModel.deleteFeeding(feeding.id);
+                    healthRecordViewModel.deleteHealthRecord(record.id);
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Beslenme kaydı silindi')),
+                      const SnackBar(content: Text('Sağlık kaydı silindi')),
                     );
                   },
                 ),

@@ -25,7 +25,6 @@ class _UpdateFeedingPageState extends State<UpdateFeedingPage> {
   void initState() {
     super.initState();
 
-    // Kontrolleri mevcut veri ile doldur
     foodTypeController = TextEditingController(text: widget.feeding.foodType);
     amountController =
         TextEditingController(text: widget.feeding.amount.toString());
@@ -37,7 +36,6 @@ class _UpdateFeedingPageState extends State<UpdateFeedingPage> {
 
   @override
   void dispose() {
-    // Controller'ları dispose et
     foodTypeController.dispose();
     amountController.dispose();
     mealTimeController.dispose();
@@ -63,15 +61,15 @@ class _UpdateFeedingPageState extends State<UpdateFeedingPage> {
             ),
             TextField(
               controller: amountController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
               decoration: const InputDecoration(labelText: 'Miktar (gram)'),
             ),
             TextField(
               controller: mealTimeController,
               decoration: const InputDecoration(labelText: 'Tarih ve Saat'),
-              readOnly: true, // Tarih ve saati sadece göster
+              readOnly: true,
               onTap: () async {
-                // Kullanıcı tarih ve saat seçmek için tıklarsa
                 DateTime? selectedDate = await showDatePicker(
                   context: context,
                   initialDate: widget.feeding.mealTime,
@@ -112,7 +110,6 @@ class _UpdateFeedingPageState extends State<UpdateFeedingPage> {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                // Güncellenmiş FeedingModel nesnesi oluştur
                 final updatedFeeding = FeedingModel(
                   id: widget.feeding.id,
                   petId: widget.feeding.petId,
@@ -120,14 +117,12 @@ class _UpdateFeedingPageState extends State<UpdateFeedingPage> {
                   amount: double.tryParse(amountController.text) ??
                       widget.feeding.amount,
                   hasWater: hasWater,
-                  mealTime: widget.feeding.mealTime, // Eski tarih bilgisi
+                  mealTime: widget.feeding.mealTime,
                 );
 
-                // updateFeeding metodunu çağır
                 feedingViewModel.updateFeeding(
                     widget.feeding.id, updatedFeeding);
 
-                // Kullanıcıyı geri yönlendir
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Beslenme kaydı güncellendi')),

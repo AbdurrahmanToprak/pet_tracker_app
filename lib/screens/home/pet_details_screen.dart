@@ -30,7 +30,6 @@ class _PetDetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Selected Pet: ${pet.id}');
     final petViewModel = Provider.of<PetViewModel>(context);
 
     return Scaffold(

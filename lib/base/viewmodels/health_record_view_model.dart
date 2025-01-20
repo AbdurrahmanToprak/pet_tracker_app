@@ -18,6 +18,17 @@ class HealthRecordViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateHealthRecord(String recordId, HealthRecordModel updatedRecord) {
+    final index = _healthRecordBox.values
+        .toList()
+        .indexWhere((record) => record.id == recordId);
+
+    if (index != -1) {
+      _healthRecordBox.putAt(index, updatedRecord);
+      notifyListeners();
+    }
+  }
+
   void deleteHealthRecord(String recordId) {
     final index = _healthRecordBox.values
         .toList()
