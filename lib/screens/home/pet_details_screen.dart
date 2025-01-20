@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../base/viewmodels/feeding_view_model.dart';
 import '../../base/viewmodels/pet_view_model.dart';
 import '../../models/pet_model.dart';
 import '../feeding/feeding_page.dart';
@@ -9,24 +8,23 @@ import '../health/health_record_page.dart';
 import '../reminder/reminder_page.dart';
 import 'package:pet_tracker_app/screens/home/update_pet_screen.dart';
 
-class PetDetailPage extends StatelessWidget {
+class PetDetailPage extends StatefulWidget {
   final PetModel pet;
 
   const PetDetailPage({super.key, required this.pet});
 
   @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => FeedingViewModel(),
-      child: _PetDetailContent(pet: pet),
-    );
-  }
+  _PetDetailPageState createState() => _PetDetailPageState();
 }
 
-class _PetDetailContent extends StatelessWidget {
-  final PetModel pet;
+class _PetDetailPageState extends State<PetDetailPage> {
+  late PetModel pet;
 
-  const _PetDetailContent({required this.pet});
+  @override
+  void initState() {
+    super.initState();
+    pet = widget.pet;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +68,10 @@ class _PetDetailContent extends StatelessWidget {
                   );
 
                   if (updatedPet != null) {
+                    setState(() {
+                      pet = updatedPet;
+                    });
+
                     petViewModel.updatePet(pet.id, updatedPet);
                   }
                 },
@@ -82,8 +84,9 @@ class _PetDetailContent extends StatelessWidget {
                     petViewModel.deletePet(index);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                          content:
-                              Text('Evcil hayvan bilgisi başarıyla silindi')),
+                        content: Text('Evcil hayvan bilgisi başarıyla silindi'),
+                        duration: Duration(seconds: 1),
+                      ),
                     );
                     Navigator.pop(context);
                   }

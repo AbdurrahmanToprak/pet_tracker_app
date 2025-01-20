@@ -157,10 +157,10 @@ class _UpdatePetScreenState extends State<UpdatePetScreen> {
                   // mesaj
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                        content:
-                            Text('Evcil hayvan bilgisi başarıyla güncellendi')),
+                      content: Text('Evcil hayvan bilgisi güncellendi'),
+                      duration: Duration(seconds: 1),
+                    ),
                   );
-
                   Navigator.pop(context, updatedPet);
                 }
               },
