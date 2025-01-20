@@ -7,7 +7,7 @@ import '../../base/viewmodels/feeding_view_model.dart';
 class AddFeedingPage extends StatefulWidget {
   final PetModel pet;
 
-  AddFeedingPage({required this.pet});
+  const AddFeedingPage({super.key, required this.pet});
 
   @override
   _AddFeedingPageState createState() => _AddFeedingPageState();
@@ -53,7 +53,7 @@ class _AddFeedingPageState extends State<AddFeedingPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Yeni Beslenme Kaydı'),
+        title: const Text('Yeni Beslenme Kaydı'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -62,14 +62,14 @@ class _AddFeedingPageState extends State<AddFeedingPage> {
           child: Column(
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: 'Yemek Türü'),
+                decoration: const InputDecoration(labelText: 'Yemek Türü'),
                 onSaved: (value) => _foodType = value!,
                 validator: (value) => value == null || value.isEmpty
                     ? 'Yemek türü gerekli'
                     : null,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Miktar (gram)'),
+                decoration: const InputDecoration(labelText: 'Miktar (gram)'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _amount = double.parse(value!),
                 validator: (value) =>
@@ -77,24 +77,24 @@ class _AddFeedingPageState extends State<AddFeedingPage> {
                         ? 'Geçerli bir miktar girin'
                         : null,
               ),
-              SizedBox(height: 10),
-              Row(
+              const SizedBox(height: 10),
+              Column(
                 children: [
                   Text('Yemek Saati: ${_mealTime.toLocal()}'),
                   TextButton(
                     onPressed: () => _selectMealTime(context),
-                    child: Text('Saat Seç'),
+                    child: const Text('Saat Seç'),
                   ),
                 ],
               ),
               SwitchListTile(
-                title: Text('Su Verildi mi?'),
+                title: const Text('Su Verildi mi?'),
                 value: _hasWater,
                 onChanged: (value) => setState(() => _hasWater = value),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
-                child: Text('Kaydet'),
+                child: const Text('Kaydet'),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
@@ -111,7 +111,7 @@ class _AddFeedingPageState extends State<AddFeedingPage> {
                     feedingViewModel.addFeeding(widget.pet.id, newFeeding);
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Beslenme kaydı eklendi!')),
+                      const SnackBar(content: Text('Beslenme kaydı eklendi!')),
                     );
                   }
                 },

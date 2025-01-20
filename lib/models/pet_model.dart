@@ -80,6 +80,6 @@ class PetModel {
 
   // Yeni bir sabit ID oluştur
   static String _generateId() {
-    return Uuid().v4();
+    return const Uuid().v4();
   }
 }

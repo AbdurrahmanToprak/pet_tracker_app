@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_tracker_app/screens/feeding/feeding_detail_page.dart';
 import '../../models/pet_model.dart';
 import '../../base/viewmodels/feeding_view_model.dart';
 import 'package:provider/provider.dart';
@@ -8,19 +9,20 @@ import 'add_feeding_page.dart';
 class FeedingPage extends StatelessWidget {
   final PetModel pet;
 
-  FeedingPage({required this.pet});
+  const FeedingPage({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
     final feedingViewModel = Provider.of<FeedingViewModel>(context);
-    final feedings = feedingViewModel.getFeedingsForPet(pet.id);
+    final feedings = feedingViewModel
+        .getFeedingsForPet(pet.id); // Pet'e özel feedings alınıyor
 
     return Scaffold(
       appBar: AppBar(
         title: Text('${pet.name} Beslenme Kaydı'),
       ),
       body: feedings.isEmpty
-          ? Center(child: Text('Henüz bir beslenme kaydı yok.'))
+          ? const Center(child: Text('Henüz bir beslenme kaydı yok.'))
           : ListView.builder(
               itemCount: feedings.length,
               itemBuilder: (context, index) {
@@ -36,10 +38,24 @@ class FeedingPage extends StatelessWidget {
                         ),
                         Text(
                           'Tarih: ${feeding.mealTime.day}/${feeding.mealTime.month}/${feeding.mealTime.year} ${feeding.mealTime.hour}:${feeding.mealTime.minute}',
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                       ],
                     ),
+                    // ListTile üzerine tıklanınca FeedingDetailPage'e geçiş yapacak.
+                    onTap: () {
+                      // Detay sayfasına yönlendirme
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FeedingDetailPage(
+                            feeding: feeding,
+                            pet: pet,
+                          ),
+                        ),
+                      );
+                    },
                     trailing: Column(
                       children: [
                         IconButton(
@@ -65,7 +81,7 @@ class FeedingPage extends StatelessWidget {
             MaterialPageRoute(builder: (context) => AddFeedingPage(pet: pet)),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

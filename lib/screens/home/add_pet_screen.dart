@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../base/viewmodels/pet_view_model.dart';
 import '../../models/pet_model.dart';
+import 'package:uuid/uuid.dart';
 
 class AddPetScreen extends StatefulWidget {
   const AddPetScreen({super.key});
@@ -130,7 +131,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
                   );
                 } else {
                   final pet = PetModel(
-                    id: '',
+                    id: Uuid().v4(),
                     name: _nameController.text,
                     type: _selectedType,
                     age: int.parse(_ageController.text),

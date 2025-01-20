@@ -10,7 +10,9 @@ class FeedingViewModel with ChangeNotifier {
   List<FeedingModel> get feedings => _feedingBox.values.toList();
 
   List<FeedingModel> getFeedingsForPet(String petId) {
-    return feedings.where((feeding) => feeding.petId == petId).toList();
+    return _feedingBox.values
+        .where((feeding) => feeding.petId == petId)
+        .toList();
   }
 
   // Yemek kaydı ekleme

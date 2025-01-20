@@ -6,13 +6,13 @@ import '../../base/viewmodels/pet_view_model.dart';
 import '../../models/pet_model.dart';
 import '../feeding/feeding_page.dart';
 import '../health/health_record_page.dart';
-import '../reminder/reminder_page';
+import '../reminder/reminder_page.dart';
 import 'package:pet_tracker_app/screens/home/update_pet_screen.dart';
 
 class PetDetailPage extends StatelessWidget {
   final PetModel pet;
 
-  const PetDetailPage({Key? key, required this.pet}) : super(key: key);
+  const PetDetailPage({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +30,7 @@ class _PetDetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Selected Pet: ${pet.id}');
     final petViewModel = Provider.of<PetViewModel>(context);
 
     return Scaffold(
@@ -94,9 +95,9 @@ class _PetDetailContent extends StatelessWidget {
           ),
           // Beslenme
           ListTile(
-            title: Text("Beslenme"),
-            subtitle: Text("Beslenme düzenini yönet"),
-            trailing: Icon(Icons.arrow_forward),
+            title: const Text("Beslenme"),
+            subtitle: const Text("Beslenme düzenini yönet"),
+            trailing: const Icon(Icons.arrow_forward),
             onTap: () {
               Navigator.push(
                 context,
@@ -106,12 +107,12 @@ class _PetDetailContent extends StatelessWidget {
               );
             },
           ),
-          Divider(),
+          const Divider(),
           // Sağlık Kaydı
           ListTile(
-            title: Text("Sağlık Kayıtları"),
-            subtitle: Text("Veteriner ziyaretleri ve sağlık durumu"),
-            trailing: Icon(Icons.arrow_forward),
+            title: const Text("Sağlık Kayıtları"),
+            subtitle: const Text("Veteriner ziyaretleri ve sağlık durumu"),
+            trailing: const Icon(Icons.arrow_forward),
             onTap: () {
               Navigator.push(
                 context,
@@ -121,12 +122,12 @@ class _PetDetailContent extends StatelessWidget {
               );
             },
           ),
-          Divider(),
+          const Divider(),
           // Hatırlatıcılar
           ListTile(
-            title: Text("Hatırlatıcılar"),
-            subtitle: Text("Yemek, ilaç, egzersiz hatırlatıcıları"),
-            trailing: Icon(Icons.arrow_forward),
+            title: const Text("Hatırlatıcılar"),
+            subtitle: const Text("Yemek, ilaç, egzersiz hatırlatıcıları"),
+            trailing: const Icon(Icons.arrow_forward),
             onTap: () {
               Navigator.push(
                 context,

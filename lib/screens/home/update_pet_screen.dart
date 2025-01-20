@@ -107,7 +107,8 @@ class _UpdatePetScreenState extends State<UpdatePetScreen> {
             TextField(
               controller: _weightController,
               decoration: const InputDecoration(labelText: 'Ağırlık'),
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
             ),
             DropdownButton<String>(
               value: _selectedHealthStatus,

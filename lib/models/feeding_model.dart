@@ -30,5 +30,5 @@ class FeedingModel {
     required this.hasWater,
     required this.petId,
     String? id,
-  }) : id = id ?? Uuid().v4();
+  }) : id = id ?? const Uuid().v4();
 }
