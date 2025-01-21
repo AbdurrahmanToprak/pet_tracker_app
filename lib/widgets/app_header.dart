@@ -7,8 +7,8 @@ class AppHeader extends StatelessWidget {
   const AppHeader({
     required this.title,
     this.subtitle,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

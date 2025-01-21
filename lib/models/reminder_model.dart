@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
-import 'pet_model.dart';
 
 part 'reminder_model.g.dart';
 
@@ -28,7 +27,7 @@ class ReminderModel {
   final int recurrenceInterval;
 
   @HiveField(7)
-  final PetModel pet;
+  final String petId;
 
   ReminderModel({
     required this.title,
@@ -37,6 +36,7 @@ class ReminderModel {
     required this.reminderType,
     required this.isRecurring,
     required this.recurrenceInterval,
-    required this.pet,
-  }) : id = Uuid().v4();
+    required this.petId,
+    String? id,
+  }) : id = id ?? const Uuid().v4();
 }

@@ -3,33 +3,34 @@ import 'package:hive/hive.dart';
 import '../../models/reminder_model.dart';
 
 class ReminderViewModel extends ChangeNotifier {
-  final String _boxName = 'reminders';
-  late Box<ReminderModel> _reminderBox;
+  final Box<ReminderModel> _reminderBox;
 
-  // Başlatma (Hive box'ını aç)
-  Future<void> initialize() async {
-    _reminderBox = await Hive.openBox<ReminderModel>(_boxName);
+  ReminderViewModel() : _reminderBox = Hive.box<ReminderModel>('reminders');
+
+  List<ReminderModel> getRemindersByPetId(String petId) {
+    return _reminderBox.values
+        .where((reminder) => reminder.petId == petId)
+        .toList();
+  }
+
+  void addReminder(ReminderModel reminder) {
+    _reminderBox.add(reminder);
     notifyListeners();
   }
 
-  // Tüm hatırlatıcıları al
-  List<ReminderModel> get reminderList => _reminderBox.values.toList();
-
-  // Hatırlatıcı ekle
-  Future<void> addReminder(ReminderModel reminder) async {
-    await _reminderBox.add(reminder);
-    notifyListeners();
+  void updateReminder(String id, ReminderModel updatedReminder) {
+    final index = _reminderBox.values.toList().indexWhere((r) => r.id == id);
+    if (index != -1) {
+      _reminderBox.putAt(index, updatedReminder);
+      notifyListeners();
+    }
   }
 
-  // Hatırlatıcı sil
-  Future<void> deleteReminder(int index) async {
-    await _reminderBox.deleteAt(index);
-    notifyListeners();
-  }
-
-  // Hatırlatıcı güncelle
-  Future<void> updateReminder(int index, ReminderModel updatedReminder) async {
-    await _reminderBox.putAt(index, updatedReminder);
-    notifyListeners();
+  void deleteReminder(String id) {
+    final index = _reminderBox.values.toList().indexWhere((r) => r.id == id);
+    if (index != -1) {
+      _reminderBox.deleteAt(index);
+      notifyListeners();
+    }
   }
 }

@@ -23,7 +23,8 @@ class ReminderModelAdapter extends TypeAdapter<ReminderModel> {
       reminderType: fields[4] as String,
       isRecurring: fields[5] as bool,
       recurrenceInterval: fields[6] as int,
-      pet: fields[7] as PetModel,
+      petId: fields[7] as String,
+      id: fields[0] as String?,
     );
   }
 
@@ -46,7 +47,7 @@ class ReminderModelAdapter extends TypeAdapter<ReminderModel> {
       ..writeByte(6)
       ..write(obj.recurrenceInterval)
       ..writeByte(7)
-      ..write(obj.pet);
+      ..write(obj.petId);
   }
 
   @override
