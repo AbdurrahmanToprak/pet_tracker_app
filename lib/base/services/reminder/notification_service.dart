@@ -42,7 +42,7 @@ class NotificationService {
     required String title,
     required String body,
     required DateTime scheduledDate,
-    required bool isRecurring,
+    bool? isRecurring,
   }) async {
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
@@ -61,28 +61,36 @@ class NotificationService {
       tz.local,
     );
 
-    if (isRecurring) {
-      final currentTime = tz.TZDateTime.now(tz.local);
-
-      if (tzScheduledDate.isBefore(currentTime)) {
-        tzScheduledDate = tzScheduledDate.add(Duration(days: 1));
-      }
-    } else {
+    // Eğer isRecurring null ise tek seferlik bildirim ayarla
+    if (isRecurring == null || !isRecurring) {
       if (tzScheduledDate.isBefore(tz.TZDateTime.now(tz.local))) {
         print('Hatırlatıcı zamanı geçmiş! Lütfen gelecekte bir zaman seçin.');
         return;
       }
+      await _notificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tzScheduledDate,
+        notificationDetails,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    } else {
+      // Günlük tekrar eden bildirim için
+      final currentTime = tz.TZDateTime.now(tz.local);
+      if (tzScheduledDate.isBefore(currentTime)) {
+        tzScheduledDate = tzScheduledDate.add(Duration(days: 1));
+      }
+      await _notificationsPlugin.periodicallyShow(
+        id,
+        title,
+        body,
+        RepeatInterval.daily,
+        notificationDetails,
+        androidAllowWhileIdle: true,
+      );
     }
-
-    await _notificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      tzScheduledDate,
-      notificationDetails,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../models/health_record_model.dart';
 import '../../models/pet_model.dart';
@@ -91,8 +92,8 @@ class _UpdateHealthRecordPageState extends State<UpdateHealthRecordPage> {
                     );
                     setState(() {
                       selectedDateTime = newVisitDate;
-                      visitDateController.text =
-                          "${newVisitDate.day}/${newVisitDate.month}/${newVisitDate.year} ${newVisitDate.hour}:${newVisitDate.minute}";
+                      visitDateController.text = DateFormat('dd-MM-yyyy HH:mm')
+                          .format(selectedDateTime);
                     });
                   }
                 }

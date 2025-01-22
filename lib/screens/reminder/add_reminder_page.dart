@@ -198,7 +198,7 @@ class _AddReminderPageState extends State<AddReminderPage> {
                         title: 'Hatırlatıcı: ${newReminder.title}',
                         body: newReminder.description,
                         scheduledDate: newReminder.reminderDate,
-                        isRecurring: newReminder.isRecurring,
+                        isRecurring: _isRecurring ? true : null,
                       );
 
                       Navigator.pop(context);

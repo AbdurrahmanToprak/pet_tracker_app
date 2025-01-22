@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../models/pet_model.dart';
 import '../../models/health_record_model.dart';
@@ -70,7 +71,10 @@ class _AddHealthRecordPageState extends State<AddHealthRecordPage> {
               const SizedBox(height: 10),
               Column(
                 children: [
-                  Text('Ziyaret Saati: ${_visitDate.toLocal()}'),
+                  Text(
+                    'Ziyaret Tarihi: ${DateFormat('dd-MM-yyyy HH:mm').format(_visitDate.toLocal())}',
+                    style: const TextStyle(fontSize: 16),
+                  ),
                   TextButton(
                     onPressed: () => _selectVisitDate(context),
                     child: const Text('Saat Seç'),

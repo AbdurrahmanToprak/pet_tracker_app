@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../models/health_record_model.dart';
 import '../../models/pet_model.dart';
@@ -44,8 +45,10 @@ class _HealthRecordDetailPageState extends State<HealthRecordDetailPage> {
             Text('Doktor: ${record.doctorName}',
                 style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 10),
-            Text('Ziyaret Tarihi: ${record.visitDate.toLocal()}',
-                style: const TextStyle(fontSize: 16)),
+            Text(
+              'Ziyaret Tarihi: ${DateFormat('dd-MM-yyyy HH:mm').format(record.visitDate.toLocal())}',
+              style: const TextStyle(fontSize: 16),
+            ),
             const SizedBox(height: 10),
             Text('Açıklama: ${record.description}',
                 style: const TextStyle(fontSize: 16)),

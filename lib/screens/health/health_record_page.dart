@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../models/pet_model.dart';
 import '../../base/viewmodels/health_record_view_model.dart';
@@ -27,8 +28,10 @@ class HealthRecordPage extends StatelessWidget {
                 return Card(
                   child: ListTile(
                     title: Text('Doktor: ${record.doctorName}'),
-                    subtitle:
-                        Text('Ziyaret Tarihi: ${record.visitDate.toLocal()}'),
+                    subtitle: Text(
+                      'Ziyaret Tarihi: ${DateFormat('dd-MM-yyyy HH:mm').format(record.visitDate.toLocal())}',
+                      style: const TextStyle(fontSize: 16),
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,

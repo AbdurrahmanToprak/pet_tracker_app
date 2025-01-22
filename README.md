@@ -1,16 +1,58 @@
-# pet_tracker_app
+# Proje Adı
 
-A new Flutter project.
+Evcil Hayvan Takip Uygulaması
 
-## Getting Started
+## Projenin amacı
 
-This project is a starting point for a Flutter application.
+Bu uygulama, kullanıcıların evcil hayvanlarının bakımını ve sağlık durumlarını takip
+etmelerine olanak tanır. Uygulama, evcil hayvanların beslenme ve sağlık ihtiyaçlarını düzenli
+olarak kaydetmeyi, izlemeyi ve hatırlatıcılar göndermeyi sağlar.
 
-A few resources to get you started if this is your first Flutter project:
+## Kullanılan Teknolojiler
+Flutter: Mobil uygulama geliştirme framework'ü.
+MVVM: Model-View-ViewModel mimarisi.
+Provider: State management için.
+Hive: Yerel veritabanı.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Dosya Yapısı
+lib/
+  ├── base/
+  │   ├── services/             # servisler
+  │   └── viewmodels/           # ViewModel sınıfları
+  ├── models/                  # Veritabanı modelleri
+  ├── screens/                 # UI sayfaları
+  ├── widgets/                 # Tekrar kullanılabilir widget'lar
+  └── main.dart                # Uygulama başlangıcı
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Ekran Görüntüleri 
+
+# Anasayfa
+![Anasayfa](assets/screenshots/home.jpeg)
+
+# Evcil Hayvan Ekleme
+![AddPet](assets/screenshots/addpet.jpeg)
+
+# Evcil Hayvan Detay
+![PetDetail](assets/screenshots/petdetail.jpeg)
+
+# Beslenme Kaydı Ekleme
+![AddFeeding](assets/screenshots/addfeeding.jpeg)
+
+# Beslenme Kaydı Detay
+![FeedingDetail](assets/screenshots/feedingdetail.jpeg)
+
+# Sağlık Kaydı Ekleme
+![AddHealthRecord](assets/screenshots/addhealthrecord.jpeg)
+
+# Sağlık Kaydı Detay
+![HealthRecordDetail](assets/screenshots/healthrecorddetail.jpeg)
+
+# Hatırlatıcı Ekleme(Tekrarlı, Tekrarsız)
+![AddReminder](assets/screenshots/addreminder.jpeg)
+![AddReminder2](assets/screenshots/addreminder2.jpeg)
+
+# Hatırlatıcı Detay
+![ReminderDetail](assets/screenshots/reminderdetail.jpeg)
+
+# Bildirim Örneği
+![Notification](assets/screenshots/notification.jpeg)
