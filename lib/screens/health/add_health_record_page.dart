@@ -54,7 +54,7 @@ class _AddHealthRecordPageState extends State<AddHealthRecordPage> {
       appBar: AppBar(
         title: const Text('Yeni Sağlık Kaydı'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,

@@ -54,7 +54,6 @@ class _FeedingDetailPageState extends State<FeedingDetailPage> {
               'Tarih: ${feeding.mealTime.day}/${feeding.mealTime.month}/${feeding.mealTime.year} ${feeding.mealTime.hour}:${feeding.mealTime.minute}',
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

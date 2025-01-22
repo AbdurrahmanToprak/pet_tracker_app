@@ -53,7 +53,7 @@ class _UpdatePetScreenState extends State<UpdatePetScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Evcil Hayvanı Güncelle')),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [

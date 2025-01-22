@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/pet_model.dart';
 import '../../base/viewmodels/reminder_view_model.dart';
-import '../../base/viewmodels/pet_view_model.dart';
 import 'add_reminder_page.dart';
 import 'reminder_detail_page.dart';
 

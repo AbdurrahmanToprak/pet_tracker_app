@@ -51,7 +51,7 @@ class _UpdateFeedingPageState extends State<UpdateFeedingPage> {
       appBar: AppBar(
         title: const Text('Beslenme Güncelle'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -107,7 +107,7 @@ class _UpdateFeedingPageState extends State<UpdateFeedingPage> {
                 });
               },
             ),
-            const Spacer(),
+            const SizedBox(height: 20), // To ensure enough space for the button
             ElevatedButton(
               onPressed: () {
                 final updatedFeeding = FeedingModel(

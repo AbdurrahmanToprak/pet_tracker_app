@@ -51,7 +51,7 @@ class _UpdateHealthRecordPageState extends State<UpdateHealthRecordPage> {
       appBar: AppBar(
         title: const Text('Sağlık Kaydını Güncelle'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
