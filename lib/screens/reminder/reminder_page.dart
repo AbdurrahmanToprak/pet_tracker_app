@@ -15,7 +15,6 @@ class ReminderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final reminderViewModel = Provider.of<ReminderViewModel>(context);
 
-   
     final petReminders = reminderViewModel.getRemindersByPetId(pet.id);
 
     return Scaffold(
@@ -23,7 +22,7 @@ class ReminderPage extends StatelessWidget {
         title: const Text('Hatırlatıcılar'),
       ),
       body: petReminders.isEmpty
-          ? Center(
+          ? const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -32,8 +31,8 @@ class ReminderPage extends StatelessWidget {
                     size: 50,
                     color: Colors.grey,
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
+                  SizedBox(height: 20),
+                  Text(
                     'Henüz hatırlatıcı eklenmedi',
                     style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),

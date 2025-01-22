@@ -8,7 +8,7 @@ class NotificationService {
 
   static Future<void> initialize() async {
     const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('app_icon');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
     const InitializationSettings initializationSettings =
         InitializationSettings(android: androidInitializationSettings);
@@ -42,6 +42,7 @@ class NotificationService {
     required String title,
     required String body,
     required DateTime scheduledDate,
+    required bool isRecurring,
   }) async {
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
@@ -55,10 +56,23 @@ class NotificationService {
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
 
-    final tz.TZDateTime tzScheduledDate = tz.TZDateTime.from(
-      scheduledDate,
+    tz.TZDateTime tzScheduledDate = tz.TZDateTime.from(
+      scheduledDate.toUtc(),
       tz.local,
     );
+
+    if (isRecurring) {
+      final currentTime = tz.TZDateTime.now(tz.local);
+
+      if (tzScheduledDate.isBefore(currentTime)) {
+        tzScheduledDate = tzScheduledDate.add(Duration(days: 1));
+      }
+    } else {
+      if (tzScheduledDate.isBefore(tz.TZDateTime.now(tz.local))) {
+        print('Hatırlatıcı zamanı geçmiş! Lütfen gelecekte bir zaman seçin.');
+        return;
+      }
+    }
 
     await _notificationsPlugin.zonedSchedule(
       id,

@@ -57,66 +57,69 @@ class _AddFeedingPageState extends State<AddFeedingPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Yemek Türü'),
-                onSaved: (value) => _foodType = value!,
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Yemek türü gerekli'
-                    : null,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Miktar (gram)'),
-                keyboardType: TextInputType.number,
-                onSaved: (value) => _amount = double.parse(value!),
-                validator: (value) =>
-                    value == null || double.tryParse(value) == null
-                        ? 'Geçerli bir miktar girin'
-                        : null,
-              ),
-              const SizedBox(height: 10),
-              Column(
-                children: [
-                  Text('Yemek Saati: ${_mealTime.toLocal()}'),
-                  TextButton(
-                    onPressed: () => _selectMealTime(context),
-                    child: const Text('Saat Seç'),
-                  ),
-                ],
-              ),
-              SwitchListTile(
-                title: const Text('Su Verildi mi?'),
-                value: _hasWater,
-                onChanged: (value) => setState(() => _hasWater = value),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                child: const Text('Kaydet'),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Yemek Türü'),
+                  onSaved: (value) => _foodType = value!,
+                  validator: (value) => value == null || value.isEmpty
+                      ? 'Yemek türü gerekli'
+                      : null,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Miktar (gram)'),
+                  keyboardType: TextInputType.number,
+                  onSaved: (value) => _amount = double.parse(value!),
+                  validator: (value) =>
+                      value == null || double.tryParse(value) == null
+                          ? 'Geçerli bir miktar girin'
+                          : null,
+                ),
+                const SizedBox(height: 10),
+                Column(
+                  children: [
+                    Text('Yemek Saati: ${_mealTime.toLocal()}'),
+                    TextButton(
+                      onPressed: () => _selectMealTime(context),
+                      child: const Text('Saat Seç'),
+                    ),
+                  ],
+                ),
+                SwitchListTile(
+                  title: const Text('Su Verildi mi?'),
+                  value: _hasWater,
+                  onChanged: (value) => setState(() => _hasWater = value),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  child: const Text('Kaydet'),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
 
-                    final newFeeding = FeedingModel(
-                      id: DateTime.now().toString(),
-                      petId: widget.pet.id,
-                      foodType: _foodType,
-                      mealTime: _mealTime,
-                      amount: _amount,
-                      hasWater: _hasWater,
-                    );
+                      final newFeeding = FeedingModel(
+                        id: DateTime.now().toString(),
+                        petId: widget.pet.id,
+                        foodType: _foodType,
+                        mealTime: _mealTime,
+                        amount: _amount,
+                        hasWater: _hasWater,
+                      );
 
-                    feedingViewModel.addFeeding(widget.pet.id, newFeeding);
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Beslenme kaydı eklendi!')),
-                    );
-                  }
-                },
-              ),
-            ],
+                      feedingViewModel.addFeeding(widget.pet.id, newFeeding);
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Beslenme kaydı eklendi!')),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
