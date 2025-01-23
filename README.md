@@ -56,3 +56,6 @@ lib/
 
 # Bildirim Örneği
 ![Notification](assets/screenshots/notification.jpeg)
+
+# Ekran Videosu
+![Video](assets/screenshots/videokaydi.mp4)
